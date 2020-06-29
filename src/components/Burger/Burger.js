@@ -8,7 +8,6 @@ const burger = (props) => {
     .map((ingredient) => {
       let temp = [];
       for (let i = 0; i < props.ingredients[ingredient]; i++) {
-        console.log(ingredient, i);
         temp.push(<BurgerIngredient key={ingredient + i} type={ingredient} />);
       }
       return [...temp];
