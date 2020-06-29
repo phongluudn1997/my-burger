@@ -74,7 +74,7 @@ class BurgerBuilder extends React.Component {
     };
 
     Object.keys(disabledIngredient).map((key) => {
-      disabledIngredient[key] = disabledIngredient[key] === 0;
+      return (disabledIngredient[key] = disabledIngredient[key] === 0);
     });
     return disabledIngredient;
   };
