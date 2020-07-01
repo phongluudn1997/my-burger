@@ -23,3 +23,9 @@
 .ToolbarLogoWrapper {
   height: 80%;
 }
+
+@media (max-width: 576px) {
+  .DesktopOnly {
+    display: none;
+  }
+}
