@@ -21,7 +21,9 @@ const orderSummary = (props) => {
       <Button type="Danger" clicked={props.closeModal}>
         Cancel
       </Button>
-      <Button type="Success">Continue</Button>
+      <Button type="Success" clicked={props.order}>
+        Continue
+      </Button>
     </Aux>
   );
 };
