@@ -3,14 +3,16 @@ import "./App.css";
 import Layout from "./components/Layout/Layout";
 import BurgerBuilder from "./containers/BurgerBuilder/BugerBuilder";
 
-function App() {
-  return (
-    <div className="App">
-      <Layout>
-        <BurgerBuilder />
-      </Layout>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <Layout>
+          <BurgerBuilder />
+        </Layout>
+      </div>
+    );
+  }
 }
 
 export default App;
