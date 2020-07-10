@@ -107,6 +107,7 @@ class BurgerBuilder extends React.Component {
     this.setState({
       purchasing: true,
     });
+    this.props.history.push("/checkout");
   }
 
   purchaseCancelHandler() {
