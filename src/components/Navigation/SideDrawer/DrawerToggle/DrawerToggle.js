@@ -1,15 +1,13 @@
-import React from "react";
+import React from 'react';
 
-import "./DrawerToggle.css";
+import classes from './DrawerToggle.css';
 
-const drawerToggleHandler = (props) => {
-  return (
-    <div className="DrawerToggle" onClick={props.toggleDrawer}>
-      <div></div>
-      <div></div>
-      <div></div>
+const drawerToggle = (props) => (
+    <div className={classes.DrawerToggle} onClick={props.clicked}>
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
-  );
-};
+);
 
-export default drawerToggleHandler;
+export default drawerToggle;
