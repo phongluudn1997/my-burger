@@ -8,6 +8,7 @@ import Input from "../../../components/UI/Input/Input";
 
 class ContactData extends Component {
   state = {
+    formIsValid: false,
     orderForm: {
       name: {
         elementType: "input",
@@ -19,8 +20,11 @@ class ContactData extends Component {
         value: "",
         validation: {
           required: true,
+          minLength: 3,
+          maxLength: 5,
         },
         valid: false,
+        touched: false,
       },
       street: {
         elementType: "input",
@@ -29,6 +33,9 @@ class ContactData extends Component {
           placeholder: "Street",
         },
         value: "",
+        touched: false,
+        validation: {},
+        valid: true,
       },
       zipCode: {
         elementType: "input",
@@ -37,6 +44,9 @@ class ContactData extends Component {
           placeholder: "ZIP Code",
         },
         value: "",
+        touched: false,
+        validation: {},
+        valid: true,
       },
       country: {
         elementType: "input",
@@ -45,6 +55,9 @@ class ContactData extends Component {
           placeholder: "Country",
         },
         value: "",
+        touched: false,
+        validation: {},
+        valid: true,
       },
       email: {
         elementType: "input",
@@ -53,10 +66,16 @@ class ContactData extends Component {
           placeholder: "Email",
         },
         value: "",
+        touched: false,
+        valid: true,
+        validation: {},
       },
       deliveryMethod: {
         elementType: "select",
         value: "cheapest",
+        touched: false,
+        validation: {},
+        valid: true,
         elementConfig: {
           options: [
             { value: "fastest", valueDisplay: "Fastest" },
@@ -69,9 +88,17 @@ class ContactData extends Component {
   };
 
   isFormFieldValid = (value, rules) => {
-    let result = false;
+    let result = true;
     if (rules.required) {
-      result = value.trim() !== "";
+      result = value.trim() !== "" && result;
+    }
+
+    if (rules.minLength) {
+      result = value.length >= rules.minLength && result;
+    }
+
+    if (rules.maxLength) {
+      result = value.length <= rules.maxLength && result;
     }
     return result;
   };
@@ -114,12 +141,19 @@ class ContactData extends Component {
           e.target.value,
           this.state.orderForm[key].validation
         ),
+        touched: true,
       },
     };
+
+    let formIsValid = true;
+    for (let inputIdentifier in orderForm) {
+      formIsValid = orderForm[inputIdentifier].valid && formIsValid;
+    }
 
     this.setState((prevState) => {
       return {
         ...prevState,
+        formIsValid,
         orderForm,
       };
     });
@@ -145,10 +179,17 @@ class ContactData extends Component {
               elementConfig={element.config.elementConfig}
               value={element.config.value}
               onChange={(event) => this.onChangeHandler(event, element.id)}
+              shouldValidate={element.config.validation}
+              invalid={!element.config.valid}
+              touched={element.config.touched}
             />
           );
         })}
-        <Button btnType="Success" clicked={this.orderHandler}>
+        <Button
+          disabled={!this.state.formIsValid}
+          btnType="Success"
+          clicked={this.orderHandler}
+        >
           ORDER
         </Button>
       </form>
@@ -164,5 +205,4 @@ class ContactData extends Component {
     );
   }
 }
-
 export default ContactData;
