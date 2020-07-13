@@ -1,8 +1,11 @@
 import { combineReducers } from "redux";
 
-import ingredientReducer from "./ingredients";
 import ingredientsReducer from "./ingredients";
+import totalPrice from "./price";
 
-const rootReducer = combineReducers(ingredientsReducer);
+const rootReducer = combineReducers({
+  ingredients: ingredientsReducer,
+  totalPrice,
+});
 
 export default rootReducer;
