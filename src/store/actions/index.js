@@ -1,2 +1,7 @@
-export { addIngredient, removeIngredient, setState } from "./burgerBuilder";
-export {} from "./order";
+export {
+  addIngredient,
+  removeIngredient,
+  setState,
+  initIngredients,
+} from "./burgerBuilder";
+export { tryOrder } from "./order";

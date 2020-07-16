@@ -13,23 +13,12 @@ import * as actionCreators from "../../store/actions/index";
 
 class BurgerBuilder extends Component {
   state = {
-    totalPrice: 4,
-    purchasable: false,
     purchasing: false,
-    loading: false,
-    error: false,
   };
 
   componentDidMount() {
     console.log(this.props);
-    axios
-      .get("/ingredients.json")
-      .then((response) => {
-        this.props.setStateHandler(response.data);
-      })
-      .catch((error) => {
-        this.setState({ error: true });
-      });
+    this.props.initIngredients();
   }
 
   purchaseHandler = () => {
@@ -102,8 +91,9 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ingredients: state.ingredients,
-    totalPrice: state.totalPrice,
+    ingredients: state.burgerBuilder.ingredients,
+    totalPrice: state.burgerBuilder.totalPrice,
+    error: state.burgerBuilder.error,
   };
 };
 
@@ -117,6 +107,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     subIngredientHander: (ingredient) => {
       dispatch(actionCreators.removeIngredient(ingredient));
+    },
+    initIngredients: () => {
+      dispatch(actionCreators.initIngredients());
     },
   };
 };
