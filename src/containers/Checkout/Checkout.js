@@ -17,7 +17,7 @@ class Checkout extends Component {
   };
 
   test = () => {
-    console.log("aa");
+    console.log("as");
   };
 
   render() {
