@@ -4,4 +4,9 @@ export {
   setState,
   initIngredients,
 } from "./burgerBuilder";
-export { tryOrder } from "./order";
+export {
+  tryOrder,
+  initPurchase,
+  tryFetchOrders,
+  startFetchOrders,
+} from "./order";
