@@ -16,9 +16,7 @@ class Checkout extends Component {
     this.props.history.replace("/checkout/contact-data");
   };
 
-  test = () => {
-    console.log("");
-  };
+  test = () => {};
 
   render() {
     let summary = <Redirect to="/" />;
