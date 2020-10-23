@@ -2,7 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
   orders: [],
-  loading: true,
+  loading: false,
   purchased: false,
   error: null,
 };

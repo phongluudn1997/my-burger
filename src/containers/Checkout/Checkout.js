@@ -7,19 +7,19 @@ import ContactData from "./ContactData/ContactData";
 
 class Checkout extends Component {
   componentWillMount() {}
-
+  
   checkoutCancelledHandler = () => {
     this.props.history.goBack();
   };
-
+  
   checkoutContinuedHandler = () => {
     this.props.history.replace("/checkout/contact-data");
   };
-
+  
   test = () => {
     console.log("ss");
   };
-
+  
   render() {
     let summary = <Redirect to="/" />;
     if (this.props.ingredients) {
@@ -32,7 +32,7 @@ class Checkout extends Component {
             ingredients={this.props.ingredients}
             checkoutCancelled={this.checkoutCancelledHandler}
             checkoutContinued={this.checkoutContinuedHandler}
-          />
+            />
           <Route
             path={this.props.match.path + "/contact-data"}
             render={(props) => <ContactData {...props} />}
