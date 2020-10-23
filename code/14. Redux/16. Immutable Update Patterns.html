@@ -1,0 +1,80 @@
+<p>Immutable Update Patterns on reduxjs.org:&nbsp;<a href="https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns/" rel="noopener noreferrer" target="_blank">https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns/</a></p><h4>Updating Nested Objects</h4><p>The key to updating nested data is&nbsp;<strong>that&nbsp;<em>every</em>&nbsp;level of nesting must be copied and updated appropriately</strong>. This is often a difficult concept for those learning Redux, and there are some specific problems that frequently occur when trying to update nested objects. These lead to accidental direct mutation, and should be avoided.</p><h4>Common Mistake #1: New variables that point to the same objects</h4><p>Defining a new variable does&nbsp;<em>not</em>&nbsp;create a new actual object - it only creates another reference to the same object. An example of this error would be:</p><pre class="prettyprint linenums">function updateNestedState(state, action) {
+    let nestedState = state.nestedState;
+    // ERROR: this directly modifies the existing object reference - don't do this!
+    nestedState.nestedField = action.data;
+
+    return {
+        ...state,
+        nestedState
+    };
+}
+</pre><p>This function does correctly return a shallow copy of the top-level state object, but because the&nbsp;<code>nestedState</code>&nbsp;variable was still pointing at the existing object, the state was directly mutated.</p><h4>Common Mistake #2: Only making a shallow copy of one level</h4><p>Another common version of this error looks like this:</p><pre class="prettyprint linenums">function updateNestedState(state, action) {
+    // Problem: this only does a shallow copy!
+    let newState = {...state};
+
+    // ERROR: nestedState is still the same object!
+    newState.nestedState.nestedField = action.data;
+
+    return newState;
+}
+</pre><p>Doing a shallow copy of the top level is&nbsp;<em>not</em>&nbsp;sufficient - the&nbsp;<code>nestedState</code>&nbsp;object should be copied as well.</p><h4>Correct Approach: Copying All Levels of Nested Data</h4><p>Unfortunately, the process of correctly applying immutable updates to deeply nested state can easily become verbose and hard to read. Here's what an example of updating&nbsp;<code>state.first.second[someId].fourth</code>&nbsp;might look like:</p><pre class="prettyprint linenums">function updateVeryNestedField(state, action) {
+    return {
+        ...state,
+        first : {
+            ...state.first,
+            second : {
+                ...state.first.second,
+                [action.someId] : {
+                    ...state.first.second[action.someId],
+                    fourth : action.someValue
+                }
+            }
+        }
+    }
+}
+</pre><p>Obviously, each layer of nesting makes this harder to read, and gives more chances to make mistakes. This is one of several reasons why you are encouraged to keep your state flattened, and compose reducers as much as possible.</p><h4>Inserting and Removing Items in Arrays</h4><p>Normally, a Javascript array's contents are modified using mutative functions like&nbsp;<code>push</code>,&nbsp;<code>unshift</code>, and&nbsp;<code>splice</code>. Since we don't want to mutate state directly in reducers, those should normally be avoided. Because of that, you might see "insert" or "remove" behavior written like this:</p><pre class="prettyprint linenums">function insertItem(array, action) {
+    return [
+        ...array.slice(0, action.index),
+        action.item,
+        ...array.slice(action.index)
+    ]
+}
+
+function removeItem(array, action) {
+    return [
+        ...array.slice(0, action.index),
+        ...array.slice(action.index + 1)
+    ];
+}
+</pre><p>However, remember that the key is that the&nbsp;<em>original in-memory reference</em>&nbsp;is not modified.&nbsp;<strong>As long as we make a copy first, we can safely mutate the copy</strong>. Note that this is true for both arrays and objects, but nested values still must be updated using the same rules.</p><p>This means that we could also write the insert and remove functions like this:</p><pre class="prettyprint linenums">function insertItem(array, action) {
+    let newArray = array.slice();
+    newArray.splice(action.index, 0, action.item);
+    return newArray;
+}
+
+function removeItem(array, action) {
+    let newArray = array.slice();
+    newArray.splice(action.index, 1);
+    return newArray;
+}
+</pre><p>The remove function could also be implemented as:</p><pre class="prettyprint linenums">function removeItem(array, action) {
+    return array.filter( (item, index) =&gt; index !== action.index);
+}
+</pre><h4>Updating an Item in an Array</h4><p>Updating one item in an array can be accomplished by using&nbsp;<code>Array.map</code>, returning a new value for the item we want to update, and returning the existing values for all other items:</p><pre class="prettyprint linenums">function updateObjectInArray(array, action) {
+    return array.map( (item, index) =&gt; {
+        if(index !== action.index) {
+            // This isn't the item we care about - keep it as-is
+            return item;
+        }
+
+        // Otherwise, this is the one we want - return an updated value
+        return {
+            ...item,
+            ...action.item
+        };    
+    });
+}
+</pre><h4>Immutable Update Utility Libraries</h4><p>Because writing immutable update code can become tedious, there are a number of utility libraries that try to abstract out the process. These libraries vary in APIs and usage, but all try to provide a shorter and more succinct way of writing these updates. Some, like&nbsp;<a href="https://github.com/debitoor/dot-prop-immutable" rel="noopener noreferrer" target="_blank">dot-prop-immutable</a>, take string paths for commands:</p><pre class="prettyprint linenums">state = dotProp.set(state, `todos.${index}.complete`, true)
+</pre><p>Others, like&nbsp;<a href="https://github.com/kolodny/immutability-helper" rel="noopener noreferrer" target="_blank">immutability-helper</a>&nbsp;(a fork of the now-deprecated React Immutability Helpers addon), use nested values and helper functions:</p><pre class="prettyprint linenums">var collection = [1, 2, {a: [12, 17, 15]}];
+var newCollection = update(collection, {2: {a: {$splice: [[1, 1, 13, 14]]}}});
+</pre><p>They can provide a useful alternative to writing manual immutable update logic.</p><p><a href="https://github.com/markerikson/redux-ecosystem-links/blob/master/immutable-data.md#immutable-update-utilities" rel="noopener noreferrer" target="_blank">Immutable Data#Immutable Update Utilities</a>&nbsp;section of the&nbsp;<a href="https://github.com/markerikson/redux-ecosystem-links" rel="noopener noreferrer" target="_blank">Redux Addons Catalog</a>.<br></p><p><br></p>

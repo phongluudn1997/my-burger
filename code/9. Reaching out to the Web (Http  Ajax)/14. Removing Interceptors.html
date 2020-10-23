@@ -1,0 +1,12 @@
+<p>You learned how to add an interceptor, getting rid of one is also easy. Simply store the reference to the interceptor in a variable and call <code>eject</code>&nbsp; with that reference as an argument, to remove it (more info:&nbsp;<a href="https://github.com/axios/axios#interceptors"  rel="nofollow">https://github.com/axios/axios#interceptors</a>):</p>
+
+<pre class="prettyprint linenums">var myInterceptor = axios.interceptors.request.use(function () {/*...*/});
+axios.interceptors.request.eject(myInterceptor);</pre>
+
+
+
+
+
+
+
+<p><br></p>

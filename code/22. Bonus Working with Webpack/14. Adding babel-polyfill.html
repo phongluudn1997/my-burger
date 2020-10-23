@@ -1,0 +1,12 @@
+<p>The current setup won't support all browsers theoretically supported by React. Features like Promises and <code>Object.assign()</code>&nbsp; are missing in older browsers - especially in IE of course.</p><p>If you need to support these browsers, you need to add a polyfill (a package which provides these features for older browsers).</p><p>The Babel docs explain how you can take advantage of Babel's built-in "Polyfill auto injecting"&nbsp;feature:&nbsp;<a href="https://babeljs.io/docs/en/babel-polyfill" rel="noopener noreferrer" target="_blank">https://babeljs.io/docs/en/babel-polyfill</a></p><p>Simply install two packages:</p><p><code>npm install --save core-js</code></p><p>and</p><p><code>npm install --save regenerator-runtime</code>&nbsp;</p><p>Change the config of your <code>@babel/preset-env</code>&nbsp; babel preset in the <code>.babelrc</code>&nbsp; file:&nbsp;</p><pre class="prettyprint linenums">"presets": [
+    ["@babel/preset-env", {
+        "targets": {
+            "browsers": [
+                "&gt; 1%",
+                "last 2 versions"
+            ]
+        },
+        "useBuiltIns": "usage"
+     }],
+    ...
+ ],</pre>

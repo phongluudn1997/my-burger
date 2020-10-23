@@ -1,0 +1,308 @@
+<p>In the last lecture, we saw that you can react to the onClick event - but to which other events can you listen? You can find a list of supported events here:&nbsp;<a href="https://reactjs.org/docs/events.html#supported-events" rel="nofollow">https://reactjs.org/docs/events.html#supported-events</a></p><h3>Clipboard Events</h3>
+
+<p>Event names:</p>
+
+<pre class="prettyprint linenums">
+onCopy onCut onPaste</pre>
+
+
+
+<p>Properties:</p>
+
+<pre class="prettyprint linenums">
+DOMDataTransfer clipboardData
+</pre>
+
+
+
+
+
+<h3><a href="https://reactjs.org/docs/events.html#composition-events" aria-hidden="true" class="anchor" rel="nofollow"></a><p><a href="https://reactjs.org/docs/events.html#composition-events" aria-hidden="true" class="anchor" rel="nofollow"></a>Composition Events</p></h3>
+
+<p>Event names:</p>
+
+<pre class="prettyprint linenums">
+onCompositionEnd onCompositionStart onCompositionUpdate</pre>
+
+
+
+
+
+<p>Properties:</p>
+
+<pre class="prettyprint linenums">
+string data
+</pre>
+
+
+
+
+
+<h3><a href="https://reactjs.org/docs/events.html#keyboard-events" aria-hidden="true" class="anchor" rel="nofollow"></a><p><a href="https://reactjs.org/docs/events.html#keyboard-events" aria-hidden="true" class="anchor" rel="nofollow"></a>Keyboard Events</p></h3>
+
+<p>Event names:</p>
+
+<pre class="prettyprint linenums">
+onKeyDown onKeyPress onKeyUp</pre>
+
+
+
+
+
+<p>Properties:</p>
+
+<pre class="prettyprint linenums">
+boolean altKey
+number charCode
+boolean ctrlKey
+boolean getModifierState(key)
+string key
+number keyCode
+string locale
+number location
+boolean metaKey
+boolean repeat
+boolean shiftKey
+number which
+</pre>
+
+
+
+
+
+<h3><a href="https://reactjs.org/docs/events.html#focus-events" aria-hidden="true" class="anchor" rel="nofollow"></a><p><a href="https://reactjs.org/docs/events.html#focus-events" aria-hidden="true" class="anchor" rel="nofollow"></a>Focus Events</p></h3>
+
+<p>Event names:</p>
+
+<pre class="prettyprint linenums">
+onFocus onBlur</pre>
+
+
+
+
+
+<p>These focus events work on all elements in the React DOM, not just form elements.</p>
+
+<p>Properties:</p>
+
+<pre class="prettyprint linenums">
+DOMEventTarget relatedTarget
+</pre>
+
+
+
+
+
+<h3><a href="https://reactjs.org/docs/events.html#form-events" aria-hidden="true" class="anchor" rel="nofollow"></a><p><a href="https://reactjs.org/docs/events.html#form-events" aria-hidden="true" class="anchor" rel="nofollow"></a>Form Events</p></h3>
+
+<p>Event names:</p>
+
+<pre class="prettyprint linenums">
+onChange onInput onInvalid onSubmit</pre>
+
+
+
+
+
+<p>For more information about the onChange event, see&nbsp;<a href="https://reactjs.org/docs/forms.html" rel="nofollow">Forms</a>.</p>
+
+<h3><a href="https://reactjs.org/docs/events.html#mouse-events" aria-hidden="true" class="anchor" rel="nofollow"></a><p><a href="https://reactjs.org/docs/events.html#mouse-events" aria-hidden="true" class="anchor" rel="nofollow"></a>Mouse Events</p></h3>
+
+<p>Event names:</p>
+
+<pre class="prettyprint linenums">
+onClick onContextMenu onDoubleClick onDrag onDragEnd onDragEnter onDragExit
+onDragLeave onDragOver onDragStart onDrop onMouseDown onMouseEnter onMouseLeave
+onMouseMove onMouseOut onMouseOver onMouseUp</pre>
+
+
+
+
+
+<p>The&nbsp;<code>onMouseEnter</code>&nbsp;and&nbsp;<code>onMouseLeave</code>&nbsp;events propagate from the element being left to the one being entered instead of ordinary bubbling and do not have a capture phase.</p>
+
+<p>Properties:</p>
+
+<pre class="prettyprint linenums">
+boolean altKey
+number button
+number buttons
+number clientX
+number clientY
+boolean ctrlKey
+boolean getModifierState(key)
+boolean metaKey
+number pageX
+number pageY
+DOMEventTarget relatedTarget
+number screenX
+number screenY
+boolean shiftKey
+</pre>
+
+
+
+
+
+<h3><a href="https://reactjs.org/docs/events.html#selection-events" aria-hidden="true" class="anchor" rel="nofollow"></a><p><a href="https://reactjs.org/docs/events.html#selection-events" aria-hidden="true" class="anchor" rel="nofollow"></a>Selection Events</p></h3>
+
+<p>Event names:</p>
+
+<pre class="prettyprint linenums">
+onSelect</pre>
+
+
+
+
+
+<h3><a href="https://reactjs.org/docs/events.html#touch-events" aria-hidden="true" class="anchor" rel="nofollow"></a><p><a href="https://reactjs.org/docs/events.html#touch-events" aria-hidden="true" class="anchor" rel="nofollow"></a>Touch Events</p></h3>
+
+<p>Event names:</p>
+
+<pre class="prettyprint linenums">
+onTouchCancel onTouchEnd onTouchMove onTouchStart</pre>
+
+
+
+
+
+<p>Properties:</p>
+
+<pre class="prettyprint linenums">
+boolean altKey
+DOMTouchList changedTouches
+boolean ctrlKey
+boolean getModifierState(key)
+boolean metaKey
+boolean shiftKey
+DOMTouchList targetTouches
+DOMTouchList touches
+</pre>
+
+
+
+
+
+<h3><a href="https://reactjs.org/docs/events.html#ui-events" aria-hidden="true" class="anchor" rel="nofollow"></a><p><a href="https://reactjs.org/docs/events.html#ui-events" aria-hidden="true" class="anchor" rel="nofollow"></a>UI Events</p></h3>
+
+<p>Event names:</p>
+
+<pre class="prettyprint linenums">
+onScroll</pre>
+
+
+
+
+
+<p>Properties:</p>
+
+<pre class="prettyprint linenums">
+number detail
+DOMAbstractView view
+</pre>
+
+
+
+
+
+<h3><a href="https://reactjs.org/docs/events.html#wheel-events" aria-hidden="true" class="anchor" rel="nofollow"></a><p><a href="https://reactjs.org/docs/events.html#wheel-events" aria-hidden="true" class="anchor" rel="nofollow"></a>Wheel Events</p></h3>
+
+<p>Event names:</p>
+
+<pre class="prettyprint linenums">
+onWheel</pre>
+
+
+
+
+
+<p>Properties:</p>
+
+<pre class="prettyprint linenums">
+number deltaMode
+number deltaX
+number deltaY
+number deltaZ
+</pre>
+
+
+
+
+
+<h3><a href="https://reactjs.org/docs/events.html#media-events" aria-hidden="true" class="anchor" rel="nofollow"></a><p><a href="https://reactjs.org/docs/events.html#media-events" aria-hidden="true" class="anchor" rel="nofollow"></a>Media Events</p></h3>
+
+<p>Event names:</p>
+
+<pre class="prettyprint linenums">
+onAbort onCanPlay onCanPlayThrough onDurationChange onEmptied onEncrypted
+onEnded onError onLoadedData onLoadedMetadata onLoadStart onPause onPlay
+onPlaying onProgress onRateChange onSeeked onSeeking onStalled onSuspend
+onTimeUpdate onVolumeChange onWaiting</pre>
+
+
+
+
+
+<h3><a href="https://reactjs.org/docs/events.html#image-events" aria-hidden="true" class="anchor" rel="nofollow"></a><p><a href="https://reactjs.org/docs/events.html#image-events" aria-hidden="true" class="anchor" rel="nofollow"></a>Image Events</p></h3>
+
+<p>Event names:</p>
+
+<pre class="prettyprint linenums">
+onLoad onError</pre>
+
+
+
+
+
+<h3><a href="https://reactjs.org/docs/events.html#animation-events" aria-hidden="true" class="anchor" rel="nofollow"></a><p><a href="https://reactjs.org/docs/events.html#animation-events" aria-hidden="true" class="anchor" rel="nofollow"></a>Animation Events</p></h3>
+
+<p>Event names:</p>
+
+<pre class="prettyprint linenums">
+onAnimationStart onAnimationEnd onAnimationIteration</pre>
+
+
+
+
+
+<p>Properties:</p>
+
+<pre class="prettyprint linenums">
+string animationName
+string pseudoElement
+float elapsedTime
+</pre>
+
+
+
+
+
+<h3><a href="https://reactjs.org/docs/events.html#transition-events" aria-hidden="true" class="anchor" rel="nofollow"></a><p><a href="https://reactjs.org/docs/events.html#transition-events" aria-hidden="true" class="anchor" rel="nofollow"></a>Transition Events</p></h3>
+
+<p>Event names:</p>
+
+<pre class="prettyprint linenums">
+onTransitionEnd</pre>
+
+
+
+
+
+<p>Properties:</p>
+
+<pre class="prettyprint linenums">
+string propertyName
+string pseudoElement
+float elapsedTime
+</pre>
+
+
+
+
+
+<h3><a href="https://reactjs.org/docs/events.html#other-events" aria-hidden="true" class="anchor" rel="nofollow"></a><p><a href="https://reactjs.org/docs/events.html#other-events" aria-hidden="true" class="anchor" rel="nofollow"></a>Other Events</p></h3>
+
+<p>Event names:</p>
+
+<pre class="prettyprint linenums">
+onToggle</pre><p><br></p>

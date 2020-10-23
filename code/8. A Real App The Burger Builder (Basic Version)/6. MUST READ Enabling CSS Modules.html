@@ -1,0 +1,16 @@
+<p><strong>MUST&nbsp;READ (at least the first few paragraphs ... ;-))</strong></p><p>In the next lecture, we'll use a styling solution named "CSS&nbsp;modules". We already had a look at that in the "Styling"&nbsp;section earlier in the course.</p><p>In the next lecture, we'll enable CSS&nbsp;modules and depending on the project setup you're using, the exact steps shown there might not work for you. </p><p>At least if you're not using the starting project you also find <strong>attached to the next lecture</strong>. If you DO&nbsp;use that, you should be able to continue without issues (and you can skip the rest of this text lecture here).</p><p>***</p><p><strong>In more recent project versions created by CRA, support for CSS&nbsp;modules is already built-in and you can use that feature without ejecting, please see:&nbsp;</strong><a href="https://facebook.github.io/create-react-app/docs/adding-a-css-modules-stylesheet" rel="noopener noreferrer" target="_blank"><strong>https://facebook.github.io/create-react-app/docs/adding-a-css-modules-stylesheet</strong></a></p><p>I also showed this built-in support in the "Styling"&nbsp;section earlier in the course.</p><p>If you use this approach, you DON'T need to eject. But please <strong>don't skip the next videos though</strong>, I&nbsp;do explain what CSS&nbsp;modules are and why + how we use them there!</p><p>***</p><p><strong>Optional:</strong></p><p>If you still want to eject and manually adjust the Webpack config (as we do it in the new videos - which you don't need to do if you follow the approach described in the link above), you should take the below comments into account in case your webpack config (after ejecting)&nbsp;doesn't look the same as it does in my videos:</p><p>After ejecting, we edit a Webpack config file that's made available by ejecting. This file might look slightly different for you.</p><p>In the video, I'll look for an entry that starts like this (in the <code>webpack.config.js</code> file):</p><pre class="prettyprint linenums">{
+  test: /\.css$/,
+  ...
+}</pre><p>and I&nbsp;then edit this entry.</p><p>This entry now looks slightly different. You'll have to find the following part in your <code>webpack.config.js</code> file:</p><pre class="prettyprint linenums">{
+  test: cssRegex,
+  exclude: cssModuleRegex,
+  ...
+}</pre><p>and then edit that entry.</p><p>Finally, it should look like this: </p><pre class="prettyprint linenums">{
+  test: cssRegex,
+  exclude: cssModuleRegex,
+  use: getStyleLoaders({
+      importLoaders: 1,
+      modules: true,
+      localIdentName: '[name]__[local]__[hash:base64:5]'
+  }),
+}</pre><p>You can ignore me editing the <code>webpack.config.prod.js</code> file - with the latest version of create-react-app, ejecting only gives you <strong>ONE</strong>&nbsp;webpack config file (which you edit as described above).</p>
