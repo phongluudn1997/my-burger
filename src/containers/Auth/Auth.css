@@ -8,8 +8,15 @@
   box-sizing: border-box;
 }
 
+.error-message {
+  color: #e53e3e;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
 @media (min-width: 600px) {
   .Auth {
     width: 500px;
   }
 }
+
