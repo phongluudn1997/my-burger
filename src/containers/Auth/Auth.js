@@ -2,6 +2,8 @@ import React from "react";
 import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Input/Input";
 import classes from "./Auth.css";
+import { auth } from "../../store/actions/auth";
+import { connect } from "react-redux";
 
 class Auth extends React.Component {
   state = {
@@ -82,6 +84,14 @@ class Auth extends React.Component {
     });
   };
 
+  submitHandler = (e) => {
+    e.preventDefault();
+    this.props.onAuth(
+      this.state.controls.email.value,
+      this.state.controls.password.value
+    );
+  };
+
   render() {
     const formElementsArray = [];
 
@@ -92,36 +102,38 @@ class Auth extends React.Component {
       });
     }
 
-    console.log(this.state.controls);
-
-    console.log(formElementsArray);
-
-    let form = (
-      <form onSubmit={this.orderHandler}>
-        {formElementsArray.map((element) => {
-          return (
-            <Input
-              key={element.id}
-              elementType={element.config.elementType}
-              elementConfig={element.config.elementConfig}
-              value={element.config.value}
-              onChange={(event) => this.onChangeHandler(event, element.id)}
-              shouldValidate={element.config.validation}
-              invalid={!element.config.valid}
-              touched={element.config.touched}
-            />
-          );
-        })}
-      </form>
-    );
+    let form = formElementsArray.map((element) => {
+      return (
+        <Input
+          key={element.id}
+          elementType={element.config.elementType}
+          elementConfig={element.config.elementConfig}
+          value={element.config.value}
+          onChange={(event) => this.onChangeHandler(event, element.id)}
+          shouldValidate={element.config.validation}
+          invalid={!element.config.valid}
+          touched={element.config.touched}
+        />
+      );
+    });
 
     return (
       <div className={classes["Auth"]}>
-        {form}
-        <Button btnType="Success">SUBMIT</Button>
+        <form onSubmit={this.submitHandler}>
+          {form}
+          <Button clicked={this.submitHandler} btnType="Success">
+            SUBMIT
+          </Button>
+        </form>
       </div>
     );
   }
 }
 
-export default Auth;
+const mapDispatchToProps = (dispatch) => ({
+  onAuth: (email, password) => {
+    dispatch(auth(email, password));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(Auth);
