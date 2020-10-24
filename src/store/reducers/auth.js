@@ -1,4 +1,9 @@
-import { AUTH_FAIL, AUTH_START, AUTH_SUCCESS } from "../actions/actionTypes";
+import {
+  AUTH_FAIL,
+  AUTH_LOG_OUT,
+  AUTH_START,
+  AUTH_SUCCESS,
+} from "../actions/actionTypes";
 
 const intialState = {
   loading: false,
@@ -29,6 +34,8 @@ const authReducer = (state = intialState, action) => {
         loading: false,
         error: action.payload.error,
       };
+    case AUTH_LOG_OUT:
+      return { ...intialState };
 
     default:
       return state;
