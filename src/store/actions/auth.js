@@ -3,6 +3,7 @@ import {
   AUTH_SUCCESS,
   AUTH_FAIL,
   AUTH_LOG_OUT,
+  SET_REDIRECT_PATH,
 } from "./actionTypes";
 import axios from "axios";
 
@@ -35,6 +36,15 @@ export const authFail = (error) => {
 export const authLogout = () => {
   return {
     type: AUTH_LOG_OUT,
+  };
+};
+
+export const setRedirectPath = (path) => {
+  return {
+    type: SET_REDIRECT_PATH,
+    payload: {
+      path,
+    },
   };
 };
 

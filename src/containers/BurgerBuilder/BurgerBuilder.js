@@ -17,12 +17,16 @@ class BurgerBuilder extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props);
     this.props.initIngredients();
   }
 
   purchaseHandler = () => {
-    this.setState({ purchasing: true });
+    if (!this.props.isAuth) {
+      this.props.setRedirectPath("/checkout");
+      this.props.history.push("/auth");
+    } else {
+      this.setState({ purchasing: true });
+    }
   };
 
   purchaseCancelHandler = () => {
@@ -95,6 +99,7 @@ const mapStateToProps = (state) => {
     ingredients: state.burgerBuilder.ingredients,
     totalPrice: state.burgerBuilder.totalPrice,
     error: state.burgerBuilder.error,
+    isAuth: Boolean(state.auth.token),
   };
 };
 
@@ -114,6 +119,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     initPurchase: () => {
       dispatch(actionCreators.initPurchase());
+    },
+    setRedirectPath: (path) => {
+      dispatch(actionCreators.setRedirectPath(path));
     },
   };
 };

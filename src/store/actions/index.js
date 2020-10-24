@@ -10,3 +10,4 @@ export {
   tryFetchOrders,
   startFetchOrders,
 } from "./order";
+export { setRedirectPath } from "./auth";

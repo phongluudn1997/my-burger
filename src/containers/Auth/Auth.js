@@ -96,6 +96,7 @@ class Auth extends React.Component {
   };
 
   render() {
+    console.log("RENDER");
     const formElementsArray = [];
 
     for (let key in this.state.controls) {
@@ -152,6 +153,8 @@ const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
     error: state.auth.error,
+    isAuthen: Boolean(state.auth.token),
+    redirectPath: state.auth.redirectPath,
   };
 };
 
