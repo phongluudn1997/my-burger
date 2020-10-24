@@ -8,27 +8,45 @@ export const authStart = () => {
 };
 
 export const authSuccess = (authData) => {
+  const { idToken, localId } = authData;
   return {
     type: AUTH_SUCCESS,
-    authData,
+    payload: {
+      token: idToken,
+      userId: localId,
+    },
   };
 };
 
 export const authFail = (error) => {
   return {
     type: AUTH_FAIL,
-    error,
+    payload: {
+      error,
+    },
   };
 };
 
-export const auth = (email, password) => {
+export const auth = (email, password, mode) => {
   return (dispatch) => {
     dispatch(authStart());
+    let url;
+
+    switch (mode) {
+      case "SIGN_UP":
+        url =
+          "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBy__dV5FSFaHswDaZYVToSIT-cz3nAdh8";
+        break;
+      case "SIGN_IN":
+        url =
+          "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBy__dV5FSFaHswDaZYVToSIT-cz3nAdh8";
+        break;
+      default:
+        break;
+    }
+
     axios
-      .post(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBy__dV5FSFaHswDaZYVToSIT-cz3nAdh8",
-        { email, password }
-      )
+      .post(url, { email, password })
       .then((response) => {
         console.log(response);
         dispatch(authSuccess(response.data));

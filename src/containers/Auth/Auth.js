@@ -38,6 +38,7 @@ class Auth extends React.Component {
         touched: false,
       },
     },
+    isSignup: true,
   };
 
   isFormFieldValid = (value, rules) => {
@@ -88,7 +89,8 @@ class Auth extends React.Component {
     e.preventDefault();
     this.props.onAuth(
       this.state.controls.email.value,
-      this.state.controls.password.value
+      this.state.controls.password.value,
+      this.state.isSignup ? "SIGN_UP" : "SIGN_IN"
     );
   };
 
@@ -125,14 +127,25 @@ class Auth extends React.Component {
             SUBMIT
           </Button>
         </form>
+        <Button
+          btnType="Danger"
+          clicked={() =>
+            this.setState((prevState) => ({
+              ...prevState,
+              isSignup: !prevState.isSignup,
+            }))
+          }
+        >
+          SWITCH TO {this.state.isSignup ? "SIGN IN" : "SIGN UP"}
+        </Button>
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onAuth: (email, password) => {
-    dispatch(auth(email, password));
+  onAuth: (email, password, mode) => {
+    dispatch(auth(email, password, mode));
   },
 });
 
